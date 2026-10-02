@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import PageUpButton from "../../components/PageUpButton";
+import ScrollRestorationManager from "../../components/ScrollRestorationManager";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -19,10 +20,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                window.scrollTo(0, 0);
+              } catch (e) {}
+            `,
+          }}
+        />
         <link rel="preload" as="image" href="/frames/frame-001.webp" type="image/webp" fetchPriority="high" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       </head>
       <body className="bg-[#FBFBF8] text-gray-900 antialiased font-sans selection:bg-emerald-500 selection:text-white min-h-full flex flex-col relative">
+        <ScrollRestorationManager />
         <Navbar />
         <div className="flex-1">
           {children}

@@ -45,6 +45,31 @@ export default function Navbar() {
     }, 150);
   };
 
+  const handleGoHome = (e) => {
+    if (pathname === '/') {
+      e.preventDefault();
+      if (typeof window !== 'undefined') {
+        if (window.location.hash) {
+          window.history.replaceState(null, '', window.location.pathname);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleMobileGoHome = (e) => {
+    setIsMobileMenuOpen(false);
+    if (pathname === '/') {
+      e.preventDefault();
+      if (typeof window !== 'undefined') {
+        if (window.location.hash) {
+          window.history.replaceState(null, '', window.location.pathname);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <>
       {/* Navigation Header - Liquid Glass ONLY on scroll */}
@@ -60,7 +85,8 @@ export default function Navbar() {
           {/* Brand Identity - Clean Emblem & Bold Title (no pill or border in normal state) */}
           <Link
             href="/"
-            className="flex items-center gap-3 sm:gap-3.5 group shrink-0"
+            onClick={handleGoHome}
+            className="flex items-center gap-3 sm:gap-3.5 group shrink-0 cursor-pointer"
           >
             <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-15 lg:h-15 rounded-full flex items-center justify-center shrink-0 group-hover:scale-105 transition-all duration-300 ${
               isScrolled 
@@ -91,6 +117,7 @@ export default function Navbar() {
           <nav className="hidden lg:flex items-center gap-1 sm:gap-1.5 xl:gap-2">
             <Link
               href="/"
+              onClick={handleGoHome}
               className={`px-3.5 py-1.5 rounded-full text-[14px] font-semibold transition-all whitespace-nowrap ${
                 isAboutDarkHero && !isScrolled
                   ? pathname === '/'
@@ -287,8 +314,12 @@ export default function Navbar() {
           <div>
             {/* Drawer Header */}
             <div className="flex items-center justify-between pb-5 border-b border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-white shadow-sm border border-amber-500/30 p-1 flex items-center justify-center shrink-0">
+              <Link
+                href="/"
+                onClick={handleMobileGoHome}
+                className="flex items-center gap-2.5 group cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-full bg-white shadow-sm border border-amber-500/30 p-1 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <img
                     src="/assets/images/logo_banana_a_to_z.png"
                     alt="Banana A to Z Logo"
@@ -296,14 +327,14 @@ export default function Navbar() {
                   />
                 </div>
                 <div>
-                  <span className="font-black text-[#00583C] text-sm tracking-tight block">
+                  <span className="font-black text-[#00583C] text-sm tracking-tight block group-hover:text-emerald-700 transition-colors">
                     BANANA A TO Z
                   </span>
                   <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block">
                     Circular Bio-Economy
                   </span>
                 </div>
-              </div>
+              </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition"
@@ -317,7 +348,7 @@ export default function Navbar() {
             <nav className="flex flex-col gap-1 py-5 text-sm font-semibold text-gray-700">
               <Link
                 href="/"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={handleMobileGoHome}
                 className="flex items-center justify-between hover:text-[#00583C] hover:bg-emerald-50/50 py-2.5 px-3 rounded-xl transition"
               >
                 <span>Home</span>
