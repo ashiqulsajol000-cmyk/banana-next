@@ -296,7 +296,7 @@ export default function Home() {
       {/* Industrial Decortication Banner */}
       <div className="mt-12 rounded-3xl overflow-hidden shadow-xl border border-sand-200 bg-sand-50 grid lg:grid-cols-12 items-center">
         <div className="lg:col-span-5 image-zoom-box">
-          <img src="/assets/images/fiber_extraction_process.jpg" alt="Decortication Facility" loading="lazy" decoding="async" className="w-full h-64 lg:h-full object-cover" />
+          <img src="/assets/images/fiber_extraction_process.webp" alt="Mechanical Decortication & Banana Fiber Textile Facility" loading="lazy" decoding="async" className="w-full h-64 lg:h-full object-cover" />
         </div>
         <div className="lg:col-span-7 p-6 sm:p-10 space-y-4">
           <div className="badge-pill-emerald">Decortication Standard</div>
