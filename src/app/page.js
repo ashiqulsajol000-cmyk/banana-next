@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import HeroScrollSection from '../../components/HeroScrollSection';
+import EsgCalculator from '../../components/EsgCalculator';
 
 export default function Home() {
   return (
@@ -80,97 +81,8 @@ export default function Home() {
     </div>
   </section>
 
-  {/* NEW: Interactive Zero-Waste Yield & ESG Calculator */}
-  <section id="calculator" className="py-20 bg-gradient-to-b from-[#FBFBF8] via-emerald-50/40 to-[#FBFBF8]">
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="badge-pill-emerald mb-3">Live ESG Impact Simulator</div>
-        <h2 id="calcTitle" className="text-3xl sm:text-4xl font-black text-gray-900">
-          Interactive Zero-Waste Yield & ESG Calculator
-        </h2>
-        <p id="calcSubtitle" className="text-gray-600 mt-3 text-sm sm:text-base">
-          Select the volume of banana plants processed to calculate live fiber output, rural livelihood creation, and carbon emissions saved.
-        </p>
-      </div>
-
-      {/* Calculator Box */}
-      <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-emerald-100 shadow-xl">
-        
-        {/* Slider Control */}
-        <div className="mb-10 max-w-2xl mx-auto text-center space-y-4">
-          <div className="flex justify-between items-center text-sm font-bold">
-            <span id="sliderLabel" className="text-gray-700 font-bold">Processed Banana Plants:</span>
-            <span className="text-2xl sm:text-3xl font-black text-[#0F2F1D] bg-white px-4 py-1 rounded-2xl border border-emerald-200 shadow-sm">
-              <span id="sliderDisplayVal">50,000</span> Trees
-            </span>
-          </div>
-          
-          <input type="range" id="treeSlider" min="5000" max="500000" step="5000" defaultValue="50000" className="custom-range" aria-label="Banana Plants Processed Slider" />
-          
-          <div className="flex justify-between text-[11px] font-bold text-gray-400 px-1">
-            <span>5,000 Plants (Pilot Scale)</span>
-            <span>100,000 Plants</span>
-            <span>500,000 Plants (Full Industrial)</span>
-          </div>
-        </div>
-
-        {/* Dynamic Output Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          
-          <div className="bg-white p-4 rounded-2xl border border-sand-200 shadow-sm text-center">
-            <div className="text-emerald-600 text-xl mb-1"><i className="fa-solid fa-scroll"></i></div>
-            <div id="calcFiberYield" className="text-xl sm:text-2xl font-black text-gray-900">40.0 MT</div>
-            <div className="text-[11px] font-bold text-gray-600 uppercase mt-1">Banana Fiber</div>
-            <div className="text-[10px] text-gray-400">Textile & Technical Grade</div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-sand-200 shadow-sm text-center">
-            <div className="text-[#164227] text-xl mb-1"><i className="fa-solid fa-bag-shopping"></i></div>
-            <div id="calcBags" className="text-xl sm:text-2xl font-black text-gray-900">20,000</div>
-            <div className="text-[11px] font-bold text-gray-600 uppercase mt-1">Artisan Bags</div>
-            <div className="text-[10px] text-gray-400">Handcrafted pieces</div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-sand-200 shadow-sm text-center">
-            <div className="text-amber-banana text-xl mb-1"><i className="fa-solid fa-bowl-food"></i></div>
-            <div id="calcMushrooms" className="text-xl sm:text-2xl font-black text-gray-900">12,500 kg</div>
-            <div className="text-[11px] font-bold text-gray-600 uppercase mt-1">Ball Mushrooms</div>
-            <div className="text-[10px] text-gray-400">Nutrient biomass harvest</div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-sand-200 shadow-sm text-center">
-            <div className="text-[#0F1D4A] text-xl mb-1"><i className="fa-solid fa-seedling"></i></div>
-            <div id="calcCompost" className="text-xl sm:text-2xl font-black text-gray-900">60.0 MT</div>
-            <div className="text-[11px] font-bold text-gray-600 uppercase mt-1">Bio-Compost</div>
-            <div className="text-[10px] text-gray-400">Potassium-rich organic soil</div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-sand-200 shadow-sm text-center">
-            <div className="text-emerald-500 text-xl mb-1"><i className="fa-solid fa-cloud-arrow-down"></i></div>
-            <div id="calcCO2" className="text-xl sm:text-2xl font-black text-gray-900">105.0 Tons</div>
-            <div className="text-[11px] font-bold text-gray-600 uppercase mt-1">CO₂ Prevented</div>
-            <div className="text-[10px] text-gray-400">No open field burning</div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-sand-200 shadow-sm text-center">
-            <div className="text-amber-warm text-xl mb-1"><i className="fa-solid fa-hand-holding-dollar"></i></div>
-            <div id="calcIncome" className="text-xl sm:text-2xl font-black text-gray-900">$72,500</div>
-            <div className="text-[11px] font-bold text-gray-600 uppercase mt-1">Rural Wages</div>
-            <div className="text-[10px] text-gray-400">Direct community income</div>
-          </div>
-
-        </div>
-
-        <div className="mt-8 text-center">
-          <a href="#inquiry" className="btn-luxury text-xs py-2.5 px-6">
-            <i className="fa-solid fa-file-invoice-dollar text-amber-banana"></i> Inquire for Container Commercial Volumes
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
+      {/* NEW: Interactive Zero-Waste Yield & ESG Calculator (Dynamic Client Component) */}
+      <EsgCalculator />
 
   {/* Bento Grid 1: The Circular Value Chain */}
   <section id="value-chain" className="py-20 bg-white">
