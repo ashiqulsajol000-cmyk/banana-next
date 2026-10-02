@@ -280,7 +280,7 @@ export default function About() {
         <div className="lg:col-span-6 flex justify-center order-2 lg:order-1">
           <div className="relative w-full max-w-md group">
             <div className="overflow-hidden rounded-3xl shadow-xl border-4 border-white">
-              <img src="/assets/images/about/our_mission_thumbnail.webp" alt="Banana Fiber Mission Thumbnail" className="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500" />
+              <img src="/assets/images/about/our_mission_thumbnail.webp" alt="Banana Fiber Extraction Mission" loading="lazy" decoding="async" className="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500" />
             </div>
           </div>
         </div>
@@ -327,7 +327,7 @@ export default function About() {
         <div className="lg:col-span-6 flex justify-center">
           <div className="relative w-full max-w-md group">
             <div className="overflow-hidden rounded-3xl shadow-xl border-4 border-white">
-              <img src="/assets/images/about/our_vision_thumbnail.webp" alt="Banana Tree Vision Thumbnail" className="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500" />
+              <img src="/assets/images/about/our_vision_thumbnail.webp" alt="Banana Fiber Drying Vision" loading="lazy" decoding="async" className="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500" />
             </div>
           </div>
         </div>
