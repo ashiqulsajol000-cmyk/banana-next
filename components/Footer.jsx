@@ -8,8 +8,10 @@ export default function Footer() {
       {/* Top Panoramic Banana Plantation Banner (Seamlessly Blended with Upper Section) */}
       <div className="relative w-full overflow-hidden leading-none">
         <img 
-          src="/assets/images/footer_plantation_hills.png" 
+          src="/assets/images/footer_plantation_hills.webp" 
           alt="Banana Plantation Cultivation" 
+          loading="lazy"
+          decoding="async"
           className="w-full h-auto block p-0 m-0 border-0 outline-none select-none" 
         />
         {/* Seamless Horizon Blend: Softly melts the sky & upper hilltops into the section background above */}

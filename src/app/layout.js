@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
+        <link rel="preload" as="image" href="/frames/frame-001.webp" type="image/webp" fetchPriority="high" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       </head>
       <body className="bg-[#FBFBF8] text-gray-900 antialiased font-sans selection:bg-emerald-500 selection:text-white min-h-full flex flex-col relative">

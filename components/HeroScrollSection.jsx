@@ -114,14 +114,23 @@ export default function HeroScrollSection() {
   return (
     <div id="hero-scroll-wrapper" className="relative h-[280vh] sm:h-[320vh]">
       <section className="sticky top-0 h-screen overflow-hidden flex flex-col justify-between pt-20 pb-2 sm:pt-24">
-        {/* Full-width Background Canvas */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Full-width Background Canvas & Instant First-Paint Poster */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Instant SSR First-Paint Poster: Shows immediately on mobile & desktop before JS hydration */}
+          <img
+            src="/frames/frame-001.webp"
+            alt="Banana Tree Agro Transformation"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-top select-none pointer-events-none z-0"
+          />
           <HeroSequenceCanvas
             containerId="hero-scroll-wrapper"
-            className="w-full h-full"
+            className="w-full h-full relative z-[1]"
           />
           {/* Subtle soft gradient wash for optimal text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FBFBF8]/50 via-transparent to-[#FBFBF8]/30 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FBFBF8]/50 via-transparent to-[#FBFBF8]/30 pointer-events-none z-[2]"></div>
         </div>
 
         {/* Ambient background glowing orbs */}

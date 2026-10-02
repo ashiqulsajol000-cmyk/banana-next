@@ -19,6 +19,8 @@ export default function Home() {
             <img 
               src="/assets/images/banana_tree_infographic.jpg" 
               alt="Complete Banana Tree Valorization & Circular Bio-Economy Infographic" 
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto object-contain rounded-xl transition-transform duration-500 hover:scale-[1.02]" 
             />
           </div>
@@ -294,7 +296,7 @@ export default function Home() {
       {/* Industrial Decortication Banner */}
       <div className="mt-12 rounded-3xl overflow-hidden shadow-xl border border-sand-200 bg-sand-50 grid lg:grid-cols-12 items-center">
         <div className="lg:col-span-5 image-zoom-box">
-          <img src="/assets/images/fiber_extraction_process.jpg" alt="Decortication Facility" className="w-full h-64 lg:h-full object-cover" />
+          <img src="/assets/images/fiber_extraction_process.jpg" alt="Decortication Facility" loading="lazy" decoding="async" className="w-full h-64 lg:h-full object-cover" />
         </div>
         <div className="lg:col-span-7 p-6 sm:p-10 space-y-4">
           <div className="badge-pill-emerald">Decortication Standard</div>
@@ -360,7 +362,7 @@ export default function Home() {
         <div className="product-card liquid-glass-card flex flex-col justify-between" data-category="bark">
           <div>
             <div className="liquid-glass-image relative h-44 mb-3">
-              <img src="/assets/images/banana_bark_texture.jpg" alt="Banana Bark Sheets" className="w-full h-full object-cover" />
+              <img src="/assets/images/banana_bark_texture.jpg" alt="Banana Bark Sheets" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute top-3 left-3 bg-[#07150C]/90 text-emerald-400 border border-emerald-500/40 backdrop-blur-md text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
                 Raw Biomaterial
               </div>
@@ -391,7 +393,7 @@ export default function Home() {
         <div className="product-card liquid-glass-card flex flex-col justify-between" data-category="fiber">
           <div>
             <div className="liquid-glass-image relative h-44 mb-3">
-              <img src="/assets/images/banana_fiber_drying.jpg" alt="Banana Fiber Drying" className="w-full h-full object-cover" />
+              <img src="/assets/images/banana_fiber_drying.jpg" alt="Banana Fiber Drying" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute top-3 left-3 bg-[#0F1D4A]/90 text-blue-300 border border-blue-500/40 backdrop-blur-md text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
                 Textile Grade
               </div>
@@ -421,7 +423,7 @@ export default function Home() {
         <div className="product-card liquid-glass-card flex flex-col justify-between" data-category="crafts">
           <div>
             <div className="liquid-glass-image relative h-44 mb-3">
-              <img src="/assets/images/handicraft_bags.jpg" alt="Eco Organic Handicrafts" className="w-full h-full object-cover" />
+              <img src="/assets/images/handicraft_bags.jpg" alt="Eco Organic Handicrafts" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute top-3 left-3 bg-[#78350F]/90 text-amber-300 border border-amber-500/40 backdrop-blur-md text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
                 Fair Trade Crafts
               </div>
@@ -451,7 +453,7 @@ export default function Home() {
         <div className="product-card liquid-glass-card flex flex-col justify-between" data-category="food">
           <div>
             <div className="liquid-glass-image relative h-44 mb-3">
-              <img src="/assets/images/banana_chips_snacks.jpg" alt="Banana Chips & Protein Bars" className="w-full h-full object-cover" />
+              <img src="/assets/images/banana_chips_snacks.jpg" alt="Banana Chips & Protein Bars" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute top-3 left-3 bg-[#07150C]/90 text-amber-300 border border-amber-500/40 backdrop-blur-md text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
                 Agro-Processed Food
               </div>
@@ -481,7 +483,7 @@ export default function Home() {
         <div className="product-card liquid-glass-card flex flex-col justify-between" data-category="organic">
           <div>
             <div className="liquid-glass-image relative h-44 mb-3">
-              <img src="/assets/images/organic_mushrooms.jpg" alt="Bio-Fertilizer & Mushrooms" className="w-full h-full object-cover" />
+              <img src="/assets/images/organic_mushrooms.webp" alt="Bio-Fertilizer & Mushrooms" loading="lazy" decoding="async" className="w-full h-full object-cover" />
               <div className="absolute top-3 left-3 bg-[#064E3B]/90 text-emerald-300 border border-emerald-500/40 backdrop-blur-md text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
                 Soil & Organic Food
               </div>
@@ -560,7 +562,7 @@ export default function Home() {
             <div className="w-[280px] sm:w-[320px] md:w-[340px] shrink-0 bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col group/card">
               <div className="h-52 overflow-hidden bg-sand-100 relative">
                 <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 backdrop-blur-md text-[#00583C] shadow-sm z-10">Textiles</span>
-                <img src="/assets/images/usecase_textile.jpg" alt="Textile & Fashion" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
+                <img src="/assets/images/usecase_textile.webp" alt="Textile & Fashion" loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
               </div>
               <div className="p-6 text-center flex-1 flex flex-col justify-center">
                 <h3 className="text-lg font-black text-gray-900 mb-1.5 font-heading group-hover/card:text-[#00583C] transition-colors">Textile &amp; Fashion</h3>
@@ -572,7 +574,7 @@ export default function Home() {
             <div className="w-[280px] sm:w-[320px] md:w-[340px] shrink-0 bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col group/card">
               <div className="h-52 overflow-hidden bg-sand-100 relative">
                 <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 backdrop-blur-md text-[#00583C] shadow-sm z-10">Interior</span>
-                <img src="/assets/images/usecase_home.jpg" alt="Home Furnishings" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
+                <img src="/assets/images/usecase_home.webp" alt="Home Furnishings" loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
               </div>
               <div className="p-6 text-center flex-1 flex flex-col justify-center">
                 <h3 className="text-lg font-black text-gray-900 mb-1.5 font-heading group-hover/card:text-[#00583C] transition-colors">Home Furnishings</h3>
@@ -584,7 +586,7 @@ export default function Home() {
             <div className="w-[280px] sm:w-[320px] md:w-[340px] shrink-0 bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col group/card">
               <div className="h-52 overflow-hidden bg-sand-100 relative">
                 <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 backdrop-blur-md text-[#00583C] shadow-sm z-10">Artisanal</span>
-                <img src="/assets/images/usecase_handicrafts.jpg" alt="Handicrafts" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
+                <img src="/assets/images/usecase_handicrafts.webp" alt="Handicrafts" loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
               </div>
               <div className="p-6 text-center flex-1 flex flex-col justify-center">
                 <h3 className="text-lg font-black text-gray-900 mb-1.5 font-heading group-hover/card:text-[#00583C] transition-colors">Handicrafts</h3>
@@ -596,7 +598,7 @@ export default function Home() {
             <div className="w-[280px] sm:w-[320px] md:w-[340px] shrink-0 bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col group/card">
               <div className="h-52 overflow-hidden bg-sand-100 relative">
                 <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 backdrop-blur-md text-[#00583C] shadow-sm z-10">Heavy Industry</span>
-                <img src="/assets/images/usecase_industrial.jpg" alt="Industrial Use" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
+                <img src="/assets/images/usecase_industrial.webp" alt="Industrial Use" loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
               </div>
               <div className="p-6 text-center flex-1 flex flex-col justify-center">
                 <h3 className="text-lg font-black text-gray-900 mb-1.5 font-heading group-hover/card:text-[#00583C] transition-colors">Industrial Use</h3>
@@ -608,7 +610,7 @@ export default function Home() {
             <div className="w-[280px] sm:w-[320px] md:w-[340px] shrink-0 bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col group/card">
               <div className="h-52 overflow-hidden bg-sand-100 relative">
                 <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 backdrop-blur-md text-[#00583C] shadow-sm z-10">Eco Pack</span>
-                <img src="/assets/images/usecase_paper.jpg" alt="Eco Paper & Packaging" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
+                <img src="/assets/images/usecase_paper.webp" alt="Eco Paper & Packaging" loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover/card:scale-108 transition-transform duration-700" />
               </div>
               <div className="p-6 text-center flex-1 flex flex-col justify-center">
                 <h3 className="text-lg font-black text-gray-900 mb-1.5 font-heading group-hover/card:text-[#00583C] transition-colors">Eco Paper &amp; Packaging</h3>
@@ -625,7 +627,7 @@ export default function Home() {
   <section id="facility-tour" className="relative bg-[#07150C] overflow-hidden">
     {/* Organic Torn Paper Wave Top Divider */}
     <div className="w-full overflow-hidden leading-none absolute top-0 left-0 right-0 z-20 pointer-events-none">
-      <img src="/assets/images/torn_paper_top.svg" alt="" className="w-full h-8 sm:h-12 md:h-16 object-cover object-bottom block" />
+      <img src="/assets/images/torn_paper_top.svg" alt="" loading="lazy" decoding="async" className="w-full h-8 sm:h-12 md:h-16 object-cover object-bottom block" />
     </div>
 
     {/* Background Plantation Panoramic Banner */}
@@ -704,7 +706,7 @@ export default function Home() {
 
         <div className="lg:col-span-6">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/15">
-            <img src="/assets/images/bandarban_greenery.jpg" alt="Bandarban Forest Landscape" className="w-full h-auto object-cover transform hover:scale-105 transition duration-700" />
+            <img src="/assets/images/bandarban_greenery.jpg" alt="Bandarban Forest Landscape" loading="lazy" decoding="async" className="w-full h-auto object-cover transform hover:scale-105 transition duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-6">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-banana">Chittagong Hill Tracts</span>

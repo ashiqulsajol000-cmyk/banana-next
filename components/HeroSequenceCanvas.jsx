@@ -16,11 +16,26 @@ export default function HeroSequenceCanvas({
     const totalFrames = 240;
     const getFrameUrl = index => `/frames/frame-${index.toString().padStart(3, '0')}.webp`;
     
-    const seqImages = [];
+    const isMobile = typeof window !== 'undefined' && (
+      window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024)
+    );
+
+    // Frame storage and status tracking
+    const seqImages = new Array(totalFrames).fill(null);
+    const loadStatus = new Uint8Array(totalFrames); // 0: unrequested, 1: loading, 2: loaded, 3: failed
     const seqState = { frame: 0, targetFrame: 0, currentDrawn: -1 };
-    let animationFrameId;
-    let isMounted = true;
     
+    let animationFrameId = null;
+    let isUpdating = false;
+    let isMounted = true;
+    let activeConnections = 0;
+    const maxConcurrent = isMobile ? 3 : 5;
+
+    // Dual-priority queues: priorityQueue (immediate/scroll window) and backgroundQueue (progressive idle)
+    const priorityQueue = [];
+    const backgroundQueue = [];
+    const enqueued = new Uint8Array(totalFrames);
+
     // Offscreen canvas for soft feathered edge blending on widescreen
     const offCanvas = typeof document !== 'undefined' ? document.createElement('canvas') : null;
     const offCtx = offCanvas ? offCanvas.getContext('2d', { alpha: true }) : null;
@@ -37,31 +52,155 @@ export default function HeroSequenceCanvas({
         canvas.width = targetW;
         canvas.height = targetH;
         seqState.currentDrawn = -1; // force redraw on next frame
+        scheduleUpdate();
       }
     };
 
     window.addEventListener("resize", resizeCanvas, { passive: true });
     resizeCanvas();
 
-    // Load initial frame first for immediate display
-    const firstImg = new Image();
-    firstImg.src = getFrameUrl(1);
-    firstImg.onload = () => {
+    // Schedule RAF update only when needed (saves battery and GPU on mobile)
+    function scheduleUpdate() {
       if (!isMounted) return;
+      if (!isUpdating) {
+        isUpdating = true;
+        animationFrameId = requestAnimationFrame(updateSeqFrame);
+      }
+    }
+
+    function enqueuePriority(index) {
+      if (index < 0 || index >= totalFrames) return;
+      if (loadStatus[index] !== 0) return;
+      
+      // If already in background queue, we move it to priority
+      priorityQueue.unshift(index);
+      enqueued[index] = 1;
+      pumpQueue();
+    }
+
+    function enqueueBackground(index) {
+      if (index < 0 || index >= totalFrames) return;
+      if (loadStatus[index] !== 0 || enqueued[index] === 1) return;
+      
+      enqueued[index] = 1;
+      backgroundQueue.push(index);
+      pumpQueue();
+    }
+
+    function pumpQueue() {
+      if (!isMounted) return;
+
+      while (activeConnections < maxConcurrent && (priorityQueue.length > 0 || backgroundQueue.length > 0)) {
+        let nextIdx = priorityQueue.length > 0 ? priorityQueue.shift() : backgroundQueue.shift();
+        
+        if (loadStatus[nextIdx] !== 0) continue;
+        loadSingleFrame(nextIdx);
+      }
+    }
+
+    function loadSingleFrame(idx) {
+      loadStatus[idx] = 1;
+      activeConnections++;
+
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = getFrameUrl(idx + 1);
+
+      const onDone = () => {
+        if (!isMounted) return;
+        loadStatus[idx] = 2;
+        seqImages[idx] = img;
+        activeConnections--;
+
+        // If this frame improves what's drawn for current target, schedule immediate repaint
+        const curTarget = Math.min(totalFrames - 1, Math.max(0, Math.round(seqState.frame)));
+        if (Math.abs(curTarget - idx) < Math.abs(curTarget - seqState.currentDrawn)) {
+          scheduleUpdate();
+        }
+
+        pumpQueue();
+      };
+
+      if (img.complete && img.naturalWidth > 0) {
+        onDone();
+      } else {
+        img.onload = onDone;
+        img.onerror = () => {
+          if (!isMounted) return;
+          loadStatus[idx] = 3;
+          activeConnections--;
+          pumpQueue();
+        };
+      }
+    }
+
+    // Scroll window prioritization: immediately fetch ±8 frames around current scroll
+    function prioritizeScrollWindow(target) {
+      const start = Math.max(0, target - 3);
+      const end = Math.min(totalFrames - 1, target + 12);
+      
+      // Push closest forward frames first
+      for (let i = target; i <= end; i++) {
+        if (loadStatus[i] === 0) enqueuePriority(i);
+      }
+      for (let i = target - 1; i >= start; i--) {
+        if (loadStatus[i] === 0) enqueuePriority(i);
+      }
+    }
+
+    // Step 1: Immediately initialize Frame 0 (frame-001.webp)
+    const firstImg = new Image();
+    firstImg.decoding = 'async';
+    firstImg.src = getFrameUrl(1);
+    loadStatus[0] = 1;
+
+    const onFirstFrameReady = () => {
+      if (!isMounted) return;
+      loadStatus[0] = 2;
+      seqImages[0] = firstImg;
       resizeCanvas();
       drawFrame(firstImg, 0);
       seqState.currentDrawn = 0;
-      animationFrameId = requestAnimationFrame(updateSeqFrame);
-    };
-    seqImages.push(firstImg);
+      scheduleUpdate();
 
-    // Preload remaining frames
-    for (let i = 2; i <= totalFrames; i++) {
-      const img = new Image();
-      img.src = getFrameUrl(i);
-      seqImages.push(img);
+      // Step 2: Initialize progressive loading sequence
+      startProgressiveSequence();
+    };
+
+    if (firstImg.complete && firstImg.naturalWidth > 0) {
+      onFirstFrameReady();
+    } else {
+      firstImg.onload = onFirstFrameReady;
+      firstImg.onerror = () => {
+        loadStatus[0] = 3;
+        startProgressiveSequence();
+      };
     }
-    
+
+    function startProgressiveSequence() {
+      // Phase A: Critical initial scroll buffer (frames 1 to 24)
+      for (let i = 1; i <= Math.min(24, totalFrames - 1); i++) {
+        enqueuePriority(i);
+      }
+
+      // Phase B: Intelligent stepping
+      // On mobile: load every 2nd frame (step = 2) first across entire range (120 frames = 24MB instead of 48MB)
+      // Any intermediate position finds an adjacent frame (offset <= 1, virtually imperceptible on phone)
+      if (isMobile) {
+        for (let i = 26; i < totalFrames; i += 2) {
+          enqueueBackground(i);
+        }
+        // Fill odd in-between frames progressively during idle time
+        for (let i = 25; i < totalFrames; i += 2) {
+          enqueueBackground(i);
+        }
+      } else {
+        for (let i = 25; i < totalFrames; i++) {
+          enqueueBackground(i);
+        }
+      }
+    }
+
     const handleScroll = () => {
       const wrapper = document.getElementById(containerId);
       let scrollFraction = 0;
@@ -81,7 +220,12 @@ export default function HeroSequenceCanvas({
         scrollFraction = Math.min(1, Math.max(0, scrollTop / maxScroll));
       }
 
-      seqState.targetFrame = Math.round(scrollFraction * (totalFrames - 1));
+      const nextTarget = Math.round(scrollFraction * (totalFrames - 1));
+      if (nextTarget !== seqState.targetFrame) {
+        seqState.targetFrame = nextTarget;
+        prioritizeScrollWindow(nextTarget);
+        scheduleUpdate();
+      }
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -208,12 +352,15 @@ export default function HeroSequenceCanvas({
     }
 
     function updateSeqFrame() {
-      if (!isMounted) return;
+      if (!isMounted) {
+        isUpdating = false;
+        return;
+      }
 
       const diff = seqState.targetFrame - seqState.frame;
       
       if (Math.abs(diff) > 0.01) {
-        seqState.frame += diff * 0.13; // silky smooth lerp interpolation synced with scroll
+        seqState.frame += diff * 0.15; // silky smooth lerp interpolation synced with scroll
       } else {
         seqState.frame = seqState.targetFrame;
       }
@@ -228,7 +375,12 @@ export default function HeroSequenceCanvas({
         }
       }
       
-      animationFrameId = requestAnimationFrame(updateSeqFrame);
+      // Continue animation loop if still interpolating towards target
+      if (Math.abs(seqState.targetFrame - seqState.frame) > 0.01) {
+        animationFrameId = requestAnimationFrame(updateSeqFrame);
+      } else {
+        isUpdating = false;
+      }
     }
 
     return () => {
