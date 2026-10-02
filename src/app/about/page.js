@@ -359,7 +359,7 @@ export default function About() {
         {/* Left: Ecosystem Wheel Graphic */}
         <div className="lg:col-span-5 flex justify-center">
           <div className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-50 group">
-            <img src="/assets/images/about/our_ecosystem_thumbnail.webp" alt="Musapacta Ecosystem Infographic" className="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500" />
+            <img src="/assets/images/about/our_ecosystem_thumbnail.webp" alt="Banana A to Z Circular Bio-Ecosystem Infographic" loading="lazy" decoding="async" className="w-full h-auto object-cover transform group-hover:scale-105 transition duration-500" />
           </div>
         </div>
 
